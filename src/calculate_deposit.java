@@ -1,40 +1,39 @@
-import java.net.URI;import java.util.Scanner;import java.io.IOException;
+import java.util.Scanner;
 
-public class calculate_deposit
-{
-double Calculate_Complex_Percent_Function(double a, double y,int d ) {
-       double pay = a * Math.pow((1 + y/ 12), 12 *d);
-          return rnd(pay, 2);
-  } double Calculate_Simple_Percent_Function(double doubleAmount,double double_year_rate, int deposit_period) {
-         return rnd(doubleAmount+doubleAmount * double_year_rate *deposit_period, 2);
-    } double rnd(double value
-  ,int places) {
-       double ScaLe= Math.pow
-          (10, places);
-       return Math.round(value*ScaLe)
-            /ScaLe; }
-
-    void do_important_job( )
-    {
-      int period, action ;
-        Scanner abcdef = new Scanner(System.in); System.out.println("Введите сумму вклада в рублях:") ;
-      int amount = abcdef.nextInt(); System.out.println("Введите срок вклада в годах:") ;
-        period = abcdef.nextInt( );
-      System.out.println   (   "Выберите тип вклада, 1 - вклад с обычным процентом, 2 - вклад с капитализацией:");
-        action = abcdef.nextInt();
-        double outDoubleVar = 0;
-        if (action ==1) outDoubleVar = Calculate_Simple_Percent_Function(amount, 0.06, period);
-        else if (action == 2)
-        {
-            outDoubleVar = Calculate_Complex_Percent_Function(amount, 0.06, period); }
-        System.out.println("Результат вклада: " + amount + " за " + period + " лет превратятся в " + outDoubleVar);
+public class DepositCalculator {
+    double calculateComplexPercent(double amount, double percent, int depositPeriod) {
+       double pay = amount * Math.pow((1 + percent / 12), 12 * depositPeriod);
+       return roundedOfAmount(pay, 2);
     }
-public static void main(String[] args)
-    {
-        new calculate_deposit().do_important_job();
-}
+    double calculateSimplePercent(double Amount, double yearRate, int depositPeriod) {
+         return roundedOfAmount(Amount + Amount * yearRate * depositPeriod, 2);
+    }
+    double roundedOfAmount(double value, int places) {
+       double scale = Math.pow(10, places);
+       return Math.round(value * scale) / scale;
+    }
 
+    void calculateAmount() {
+        int depositPeriod;
+        int chooseAction;
+        Scanner scanner = new Scanner(System.in);
 
-
+        System.out.println("Введите сумму вклада в рублях:");
+        int amount = scanner.nextInt();
+        System.out.println("Введите срок вклада в годах:");
+        depositPeriod = scanner.nextInt( );
+        System.out.println("Выберите тип вклада, 1 - вклад с обычным процентом, 2 - вклад с капитализацией:");
+        chooseAction = scanner.nextInt();
+        double calculatedAmountPercent = 0;
+        if (chooseAction == 1) {
+            calculatedAmountPercent = calculateSimplePercent(amount, 0.06, depositPeriod);
+        } else if (chooseAction == 2) {
+            calculatedAmountPercent = calculateComplexPercent(amount, 0.06, depositPeriod);
+        }
+        System.out.println("Результат вклада: " + amount + " за " + depositPeriod + " лет превратятся в " + calculatedAmountPercent);
+    }
+    public static void main(String[] args){
+        new DepositCalculator().calculateAmount();
+    }
 
 }
